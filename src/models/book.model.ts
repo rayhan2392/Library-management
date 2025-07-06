@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { IBook } from "../interfaces/books.interfaces";
 
 
@@ -38,5 +38,9 @@ export const bookSchema = new Schema<IBook>({
 
 },
 {
-    timestamps:true
+    timestamps:true,
+    versionKey:false
 })
+
+
+export const Book = model<IBook>("Book",bookSchema)

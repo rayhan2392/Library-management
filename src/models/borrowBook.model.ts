@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { IBorrowBook } from "../interfaces/borrowBooks.interfaces";
 
 
@@ -9,6 +9,9 @@ export const borrowBookSchema = new Schema<IBorrowBook>({
     dueDate: { type: Date, required: true },
 },
 {
-    timestamps:true
+    timestamps:true,
+    versionKey:false
 }
 )
+
+export const  BorrowBook = model<IBorrowBook>("BorrowBook",borrowBookSchema)

@@ -9,7 +9,7 @@ app.use("/api/books",booksRouter);
 app.use("/api/borrow",borrowBookRouter)
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to library management app");
+    res.send("Welcome library management app");
 });
 
 export default app;

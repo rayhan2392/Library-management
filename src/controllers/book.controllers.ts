@@ -31,9 +31,14 @@ booksRouter.post("/", async (req: Request, res: Response) => {
 //get all books
 booksRouter.get("/", async (req: Request, res: Response) => {
     try {
-        const query = req.query
-        console.log(query)
-        const data = await Book.find();
+        const filter = req.query.filter;
+        const sortBy = req.query.sortBy as string || 'createdAt'
+        const sort = req.query.sort === 'asc' ? 1 : -1
+        const limit = Number(req.query.limit) || 10
+
+        const filterCondition: any = filter ? { genre: filter } : {};
+
+        const data = await Book.find(filterCondition).sort({ [sortBy]: sort }).limit(limit)
         res.status(200).json({
             "success": true,
             "message": "Books retrieved successfully",

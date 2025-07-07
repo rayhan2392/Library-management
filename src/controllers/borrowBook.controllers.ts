@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express"
 import { BorrowBook } from "../models/borrowBook.model";
 import { Book } from "../models/book.model";
+import { title } from "process";
 
 export const borrowBookRouter = express.Router();
 
@@ -40,6 +41,56 @@ borrowBookRouter.post("/", async (req: Request, res: Response) => {
             data
         })
 
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message,
+            success: false,
+            error
+        })
+    }
+})
+
+
+//get Borrowed Books Summary
+
+borrowBookRouter.get("/", async (req: Request, res: Response) => {
+    try {
+        const data = await BorrowBook.aggregate([
+            {
+                $group: {
+                    _id: '$book',
+                    totalQuantity: { $sum: '$quantity' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'bookInfo'
+                }
+            },
+            {
+                $unwind: '$bookInfo'
+            },
+            {
+                $project: {
+                    _id: 0,
+                    totalQuantity: 1,
+                    book: {
+                        title: '$bookInfo.title',
+                        isbn: '$bookInfo.isbn'
+                    }
+                }
+            }
+        ])
+
+
+        res.status(200).json({
+            success: true,
+            message: "Borrowed books summary retrieved successfully",
+            data
+        })
     } catch (error: any) {
         res.status(400).json({
             message: error.message,

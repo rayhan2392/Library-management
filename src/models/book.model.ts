@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IBook } from "../interfaces/books.interfaces";
+import { BookModel, IBook } from "../interfaces/books.interfaces";
 
 
 export const bookSchema = new Schema<IBook>({
@@ -37,10 +37,20 @@ export const bookSchema = new Schema<IBook>({
     }
 
 },
-{
-    timestamps:true,
-    versionKey:false
-})
+    {
+        timestamps: true,
+        versionKey: false
+    })
+
+//static method
+bookSchema.statics.updateAvailability = async function (bookId: string) {
+    const book = await this.findById(bookId);
+
+    if (book && book.copies === 0) {
+        book.available = false
+        await book.save();
+    }
+}
 
 
-export const Book = model<IBook>("Book",bookSchema)
+export const Book = model<IBook, BookModel>("Book", bookSchema)

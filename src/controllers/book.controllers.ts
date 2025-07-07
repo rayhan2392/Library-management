@@ -31,6 +31,8 @@ booksRouter.post("/", async (req: Request, res: Response) => {
 //get all books
 booksRouter.get("/", async (req: Request, res: Response) => {
     try {
+        const query = req.query
+        console.log(query)
         const data = await Book.find();
         res.status(200).json({
             "success": true,

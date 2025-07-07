@@ -8,10 +8,10 @@ export const borrowBookSchema = new Schema<IBorrowBook>({
     quantity: { type: Number, required: true, min: 1 },
     dueDate: { type: Date, required: true },
 },
-{
-    timestamps:true,
-    versionKey:false
-}
+    {
+        timestamps: true,
+        versionKey: false
+    }
 )
 
-export const  BorrowBook = model<IBorrowBook>("BorrowBook",borrowBookSchema)
+export const BorrowBook = model<IBorrowBook>("BorrowBook", borrowBookSchema)

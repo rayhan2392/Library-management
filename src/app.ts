@@ -7,12 +7,11 @@ const app: Application = express();
 app.use(express.json())
 
 
-const globalCorsOptions = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "Content-Type,Authorization",
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://your-frontend-url.vercel.app"],
 };
-app.use(cors(globalCorsOptions));
+app.use(cors(corsOptions));
+
 
 
 

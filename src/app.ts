@@ -5,10 +5,22 @@ import cors from "cors";
 
 const app: Application = express();
 app.use(express.json())
-app.use(cors())
 
-app.use("/api/books",booksRouter);
-app.use("/api/borrow",borrowBookRouter)
+
+const globalCorsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+};
+app.use(cors(globalCorsOptions));
+
+
+
+
+
+
+app.use("/api/books", booksRouter);
+app.use("/api/borrow", borrowBookRouter)
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Welcome library management app");

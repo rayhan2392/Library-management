@@ -41,7 +41,7 @@ exports.booksRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
         const filter = req.query.filter;
         const sortBy = req.query.sortBy || 'createdAt';
         const sort = req.query.sort === 'asc' ? 1 : -1;
-        const limit = Number(req.query.limit) || 10;
+        const limit = Number(req.query.limit) || 100;
         const filterCondition = filter ? { genre: filter } : {};
         const data = yield book_model_1.Book.find(filterCondition).sort({ [sortBy]: sort }).limit(limit);
         res.status(200).json({

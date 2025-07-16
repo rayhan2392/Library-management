@@ -19,11 +19,8 @@ app.use(express.json());
 // }))
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://library-management-frontend-chi.vercel.app'],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  preflightContinue: false,
-  optionsSuccessStatus: 200,
-  credentials: true 
+  origin: ['http://localhost:5173', 'https://library-management-frontend-chi.vercel.app']
+ 
 }));
 
 app.use("/api/books", booksRouter);

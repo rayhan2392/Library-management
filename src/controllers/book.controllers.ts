@@ -34,7 +34,7 @@ booksRouter.get("/", async (req: Request, res: Response) => {
         const filter = req.query.filter;
         const sortBy = req.query.sortBy as string || 'createdAt'
         const sort = req.query.sort === 'asc' ? 1 : -1
-        const limit = Number(req.query.limit) || 10
+        const limit = Number(req.query.limit) || 100
 
         const filterCondition: any = filter ? { genre: filter } : {};
 
